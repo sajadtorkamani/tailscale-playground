@@ -1,0 +1,6 @@
+services:
+  jokes-app:
+    build: .
+    ports:
+      - "${JOKES_APP_PORT:-8081}:80"
+    restart: unless-stopped
