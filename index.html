@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Five Jokes</title>
+  <style>
+    :root {
+      --background: #faf8f5;
+      --card: #ffffff;
+      --text: #1f1f1f;
+      --muted: #6b6b6b;
+      --accent: #d9622b;
+      --border: #e7e2da;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --background: #161514;
+        --card: #211f1d;
+        --text: #f1eee9;
+        --muted: #a39d94;
+        --accent: #f0864f;
+        --border: #34302c;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 48px 16px;
+      background: var(--background);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.5;
+    }
+    main { max-width: 640px; margin: 0 auto; }
+    h1 { font-size: 2rem; margin: 0 0 8px; }
+    p.intro { color: var(--muted); margin: 0 0 32px; }
+    ol { list-style: none; padding: 0; margin: 0; counter-reset: joke; }
+    li {
+      counter-increment: joke;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 20px 20px 64px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    li::before {
+      content: counter(joke);
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      display: grid;
+      place-items: center;
+      font-size: 0.9rem;
+    }
+    .setup { margin: 0 0 8px; font-weight: 600; }
+    details summary {
+      cursor: pointer;
+      color: var(--accent);
+      font-size: 0.95rem;
+    }
+    details p { margin: 8px 0 0; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Five Jokes</h1>
+    <p class="intro">Click to reveal each punchline.</p>
+    <ol>
+      <li>
+        <p class="setup">Why don't scientists trust atoms?</p>
+        <details><summary>Reveal</summary><p>Because they make up everything.</p></details>
+      </li>
+      <li>
+        <p class="setup">Why did the developer go broke?</p>
+        <details><summary>Reveal</summary><p>Because they used up all their cache.</p></details>
+      </li>
+      <li>
+        <p class="setup">What do you call a fake noodle?</p>
+        <details><summary>Reveal</summary><p>An impasta.</p></details>
+      </li>
+      <li>
+        <p class="setup">Why do programmers prefer dark mode?</p>
+        <details><summary>Reveal</summary><p>Because light attracts bugs.</p></details>
+      </li>
+      <li>
+        <p class="setup">I told my wife she was drawing her eyebrows too high.</p>
+        <details><summary>Reveal</summary><p>She looked surprised.</p></details>
+      </li>
+    </ol>
+  </main>
+</body>
+</html>
