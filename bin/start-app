@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+#
+# Prompts for an app in example-apps/ and starts it with Docker Compose.
+# Pass an app name to skip the prompt: bin/start-app jokes-app
+
+set -euo pipefail
+
+repository_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+example_apps_directory="$repository_root/example-apps"
+
+available_apps=()
+for app_directory in "$example_apps_directory"/*/; do
+  if [[ -f "$app_directory/compose.yaml" ]]; then
+    available_apps+=("$(basename "$app_directory")")
+  fi
+done
+
+if [[ ${#available_apps[@]} -eq 0 ]]; then
+  echo "No apps with a compose.yaml found in $example_apps_directory" >&2
+  exit 1
+fi
+
+selected_app="${1:-}"
+
+if [[ -z "$selected_app" ]]; then
+  echo "Which app do you want to start?"
+  PS3="Enter a number: "
+  select app_name in "${available_apps[@]}"; do
+    if [[ -n "$app_name" ]]; then
+      selected_app="$app_name"
+      break
+    fi
+    echo "Invalid choice, try again."
+  done
+fi
+
+if [[ ! -f "$example_apps_directory/$selected_app/compose.yaml" ]]; then
+  echo "Unknown app: $selected_app (available: ${available_apps[*]})" >&2
+  exit 1
+fi
+
+echo "Starting $selected_app..."
+docker compose --project-directory "$example_apps_directory/$selected_app" up -d --build
+docker compose --project-directory "$example_apps_directory/$selected_app" ps
